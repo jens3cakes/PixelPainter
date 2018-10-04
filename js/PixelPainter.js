@@ -2,7 +2,7 @@ function pixelPainterGrid() {
 
   let page = document.getElementById('pixelPainter');
 
-  let currentColor = 'white'; 
+  let currentColor = 'white';
 
   let isMouseDown = false;
 
@@ -19,7 +19,6 @@ function pixelPainterGrid() {
     for (let j = 0; j < 33; j++) {
       let gridCell = document.createElement('div');
       gridCell.className = 'putColorHere'
-      gridCell.id = 1;
       gridCell.style.border = '1px solid black'
       gridCell.style.height = '15px';
       gridCell.style.width = '2%';
@@ -68,7 +67,7 @@ function pixelPainterGrid() {
     currentColor = event.target.style.backgroundColor;
   }
 
-  function mouseDownEvent() {
+  function mouseDownEvent(event) {
     isMouseDown = true;
     event.target.style.backgroundColor = currentColor;
   }
@@ -77,23 +76,28 @@ function pixelPainterGrid() {
     isMouseDown = false;
   }
 
-  function mouseoverEvent() {
+  function mouseoverEvent(event) {
     if (isMouseDown === true) {
-      ;
       event.target.style.backgroundColor = currentColor;
     } else if (isMouseDown === false) {
       event.target = null;
     };
-
   }
-
-  let clearButton = document.createElement('div');
-  clearButton.id = 'clear'
-  clearButton.className = 'eraseAndClearButton'
-  clearButton.innerHTML = 'Clear';
-  clearButton.addEventListener('click', clearWholeGrid)
-  page.appendChild(clearButton);
-
+  function buildButton(name, cb) {
+    let button = document.createElement('button')
+    button.id = name;
+    button.className = 'eraseAndClearButton'
+    button.innerHTML = name;
+    button.addEventListener('click', cb);
+    return button;
+  }
+  // let clearButton = document.createElement('button');
+  // clearButton.id = 'clear'
+  // clearButton.className = 'eraseAndClearButton'
+  // clearButton.innerHTML = 'Clear';
+  // clearButton.addEventListener('click', clearWholeGrid)
+  //page.appendChild(clearButton);
+  page.appendChild(buildButton('clear',clearWholeGrid))
   let gridElement = document.getElementsByClassName('putColorHere');
   function clearWholeGrid() {
     for (let i = 0; i < gridElement.length; i++) {
@@ -101,7 +105,7 @@ function pixelPainterGrid() {
     }
   }
 
-  let eraseButton = document.createElement('div');
+  let eraseButton = document.createElement('button');
   eraseButton.id = 'erase';
   eraseButton.className = 'eraseAndClearButton'
   eraseButton.innerHTML = 'Erase';
