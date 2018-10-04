@@ -1,4 +1,4 @@
-
+function pixelPainterGrid(){
 let page = document.getElementById('pixelPainter');
 let currentColor = 'white';
 console.log(currentColor);
@@ -114,5 +114,6 @@ page.appendChild(eraseButton);
 function eraseGrid(event) {
   currentColor = event.target.style.backgroundColor
 }
-
+}
+pixelPainterGrid();
 
