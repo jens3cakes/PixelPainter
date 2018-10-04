@@ -2,7 +2,7 @@
 let page = document.getElementById('pixelPainter');
 let currentColor = 'white';
 console.log(currentColor);
-
+//code for grid to color
 let pictureGrid = document.createElement('div')
 page.appendChild(pictureGrid);
 
@@ -24,6 +24,7 @@ for (let i = 0; i < 30; i++) {
     gridRow.appendChild(gridCell);
   }
 }
+//code for color swatch
 let showColorSwatch = document.createElement('div');
 showColorSwatch.id = 'moveRight'
 showColorSwatch.className = 'alignRight'
@@ -72,8 +73,7 @@ function paintHere(){
     return timeToColor()
   }
 }
-
-
+//code to remove color from grid
 let clearButton = document.createElement('div');
 clearButton.id = 'clear'
 clearButton.className = 'eraseAndClearButton'
@@ -81,8 +81,13 @@ clearButton.innerHTML = 'Clear';
 clearButton.addEventListener('click', clearWholeGrid)
 page.appendChild(clearButton);
 
+let gridElement =document.getElementsByClassName('putColorHere');
 function clearWholeGrid() {
-  document.getElementsByClassName('putColorHere').style.backgroundColor = 'white';
+  for (let i = 0;i<gridElement.length;i++){
+   gridElement[i].style.backgroundColor = 'white';
+  }
+
+console.log(gridElement);
 }
 
 let eraseButton = document.createElement('div');
@@ -92,8 +97,14 @@ eraseButton.innerHTML = 'Erase';
 eraseButton.addEventListener('click', eraseGrid);
 page.appendChild(eraseButton);
 
-function eraseGrid() {
-  console.log('goodbye');
+function eraseGrid(event) {
+  for (let i=0; i<gridElement.length;i++){
+   if(gridElement[i]= event.target){
+     console.log(gridElement[i].length);
+     //gridElement[i].style.backgroundColor = 'white';
+   }
+  }
+  
 }
 
 
