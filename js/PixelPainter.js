@@ -2,6 +2,8 @@
 let page = document.getElementById('pixelPainter');
 let currentColor = 'white';
 console.log(currentColor);
+let isMouseDown = false;
+console.log(isMouseDown);
 //code for grid to color
 let pictureGrid = document.createElement('div')
 page.appendChild(pictureGrid);
@@ -15,12 +17,14 @@ for (let i = 0; i < 30; i++) {
   for (let j = 0; j < 33; j++) {
     let gridCell = document.createElement('div');
     gridCell.className = 'putColorHere'
+    gridCell.id= 1;
     gridCell.style.border = '1px solid black'
     gridCell.style.height = '15px';
     gridCell.style.width = '2%';
     gridCell.style.display = "inline-block";
-    gridCell.addEventListener("click",timeToColor);
-    gridCell.addEventListener('mouseover',timeToColor);
+    gridCell.addEventListener("mousedown",mouseDownEvent);
+    gridCell.addEventListener('mouseover',mouseoverEvent);
+    gridCell.addEventListener('mouseup',mouseUpEvent);
     gridRow.appendChild(gridCell);
   }
 }
@@ -62,18 +66,30 @@ function pickYourColor(event) {
   currentColor = event.target.style.backgroundColor;
 }
 
-function timeToColor(){
+
+function mouseDownEvent(){
+  isMouseDown = true;
+  console.log(isMouseDown);
 event.target.style.backgroundColor = currentColor;
 }
-function paintHere(){
-  let gridPaintEvents= document.className("putColorHere")
-  if(gridPaintEvents.event.target === 'click'){
-    return timeToColor()
-  }else if(gridPaintEvents.event.target === 'mouseover'){
-    return timeToColor()
-  }
+
+function mouseUpEvent(){
+  isMouseDown = false;
+  console.log(isMouseDown);
 }
-//code to remove color from grid
+
+function mouseoverEvent(){
+  if (isMouseDown === true){;
+  event.target.style.backgroundColor = currentColor;
+  }else if(isMouseDown === false){
+    event.target = null;
+  };
+  
+}
+
+
+
+
 let clearButton = document.createElement('div');
 clearButton.id = 'clear'
 clearButton.className = 'eraseAndClearButton'
@@ -86,8 +102,6 @@ function clearWholeGrid() {
   for (let i = 0;i<gridElement.length;i++){
    gridElement[i].style.backgroundColor = 'white';
   }
-
-console.log(gridElement);
 }
 
 let eraseButton = document.createElement('div');
@@ -98,13 +112,7 @@ eraseButton.addEventListener('click', eraseGrid);
 page.appendChild(eraseButton);
 
 function eraseGrid(event) {
-  for (let i=0; i<gridElement.length;i++){
-   if(gridElement[i]= event.target){
-     console.log(gridElement[i].length);
-     //gridElement[i].style.backgroundColor = 'white';
-   }
-  }
-  
+  currentColor = event.target.style.backgroundColor
 }
 
 
